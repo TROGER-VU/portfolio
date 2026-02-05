@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -18,7 +18,7 @@ const renderText = (text, className, baseWeight = 400) => {
 }
 
 const setUpTextHover = (container, type) => {
-    if(!container) return;
+    if(!container) return () => {};
 
     const letters = container.querySelectorAll("span");
     const { min, max, default: base } = FONT_WEIGHTS[type];
@@ -37,7 +37,8 @@ const setUpTextHover = (container, type) => {
         letters.forEach((letter) => { 
         const { left: l, width: w } = letter.getBoundingClientRect(); 
 
-        const distance = Math.abs(mouseX-(l-left+w/2)); const intensity = Math.exp(-(distance**2)/20000); 
+        const distance = Math.abs(mouseX-(l-left+w/2)); 
+        const intensity = Math.exp(-(distance**2)/20000); 
         
         animateLetter(letter, min + (max-min) * intensity); 
     }) 
@@ -73,7 +74,7 @@ const Welcome = () => {
             {renderText("Hey, I'm Ayush! Welcome to my", "text-3xl font-georama", 100)}
         </p>
         <h1 ref={titleRef} className='mt-7'>
-            {renderText("portfolio", 'text-9xl italic font-georama')}
+            {renderText("portfolio.", 'text-9xl italic font-georama')}
         </h1>
 
         <div className='small-screen'>

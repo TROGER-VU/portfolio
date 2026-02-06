@@ -7,7 +7,9 @@ import { useLayoutEffect, useRef } from "react";
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
         const { focusWindow, windows } = useWindowStore();
-        const { isOpen, zIndex } = windows[windowKey];
+        const win = windows[windowKey];
+        const isOpen = Boolean(win?.isOpen);
+        const zIndex = win?.zIndex ?? 0;
         const ref = useRef(null);
 
         useGSAP(() => {
@@ -35,6 +37,8 @@ const WindowWrapper = (Component, windowKey) => {
             if(!el) return;
             el.style.display = isOpen ? "block" : "none";
         }, [isOpen]);
+
+        if (!win) return null;
 
         return (
         <section 

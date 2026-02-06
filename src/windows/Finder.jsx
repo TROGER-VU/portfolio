@@ -5,7 +5,6 @@ import useLocationStore from '#store/location'
 import useWindowStore from '#store/window'
 import clsx from 'clsx'
 import { Search } from 'lucide-react'
-import React from 'react'
 
 const Finder = () => {
     const {openWindow} = useWindowStore();
@@ -51,7 +50,7 @@ const Finder = () => {
             </div>
 
             <ul className='content'>
-                {activeLocation?.children.map((item) => (
+                {activeLocation?.children?.map((item) => (
                     <li key={item.id} className={item.position} onClick={() => openItem(item)}>
                         <img src={item.icon} alt={item.name}/>
                         <p>{item.name}</p>
